@@ -16,7 +16,7 @@ module.exports = {
                     res.status(409).json({ errMsg: "Mail already exists." })
                 } else
                     if (duplicateUsername) {
-                        res.status(409).json({ errMsg: "Mail already exists." })
+                        res.status(409).json({ errMsg: "Username already exists." })
                     } else {
                         const passHashed = await bcrypt.hash(password, 10)
                         const userInfo = {
