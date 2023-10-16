@@ -9,10 +9,11 @@ module.exports = {
         try {
             const err = validationResult(req)
             const {username, email, password} = req.body
-            const duplicateUser= await userData.findOne({email: email})
+            const duplicateMail = await userData.findOne({email: email})
+            const duplicateUsername = await userData.findOne({username: username})
             if(err.isEmpty()){
-                if (duplicateUser){
-                    res.status(409).json({errMsg: "User already exists."})
+                if (duplicateMail || duplicateUsername){
+                    res.status(409).json({errMsg: "Mail or username already exists."})
                 } else {
                     const passHashed = await bcrypt.hash(password, 10)
                     const userInfo ={
